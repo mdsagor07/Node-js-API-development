@@ -2,6 +2,8 @@ const { v4: uuidv4 } = require("uuid");
 const crypto = require("crypto");
 const { registration, login } = require("../models/auth");
 
+
+//for register
 exports.register = (req, res) => {
   const { username, password } = req.body;
 
@@ -23,6 +25,8 @@ exports.register = (req, res) => {
   });
 };
 
+// for login
+
 exports.login = (req, res) => {
   const { username, password } = req.body;
 
@@ -31,7 +35,7 @@ exports.login = (req, res) => {
       return res
         .status(400)
         .json({ error: "the user not available in the application" });
-
+    //encrypt passcode
     const encryptedPassword = crypto
       .pbkdf2Sync(password, userObj.dataValues.salt, 1000, 64, "sha512")
       .toString("hex");
